@@ -1,5 +1,6 @@
 package com.csaba79coder.orderservice.service;
 
+import com.csaba79coder.orderservice.dto.InventoryResponse;
 import com.csaba79coder.orderservice.dto.OrderLineItemDto;
 import com.csaba79coder.orderservice.dto.OrderRequest;
 import com.csaba79coder.orderservice.model.Order;
@@ -8,8 +9,11 @@ import com.csaba79coder.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -18,6 +22,7 @@ import java.util.UUID;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final WebClient webClient;
 
     public void placeOrder(OrderRequest orderRequest) {
         Order order = new Order();
@@ -29,7 +34,26 @@ public class OrderService {
                 .toList();
 
         order.setOrderLineItem(orderLineItems);
-        orderRepository.save(order);
+
+        List<String> skuCodes = order.getOrderLineItem().stream()
+                .map(OrderLineItem::getSkuCode)
+                .toList();
+
+        InventoryResponse[] inventoryResponses = webClient.get()
+                .uri("http://localhost:8082/api/inventories",
+                        uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
+                .retrieve()
+                .bodyToMono(InventoryResponse[].class)
+                .block();
+
+        boolean allProductsInStock = Arrays.stream(Objects.requireNonNull(inventoryResponses))
+                .allMatch(InventoryResponse::isInStock);
+
+        if (allProductsInStock) {
+            orderRepository.save(order);
+        } else {
+            throw new IllegalArgumentException("Product is not on stock, please try it later!");
+        }
     }
 
     private OrderLineItem mapToDto(OrderLineItemDto orderLineItemDto) {
