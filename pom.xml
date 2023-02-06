@@ -9,7 +9,7 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
-  <groupId>org.csaba79coder</groupId>
+  <groupId>com.csaba79coder</groupId>
   <artifactId>online-shopping</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
