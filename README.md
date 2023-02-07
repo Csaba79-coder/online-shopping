@@ -8,6 +8,7 @@
 - Order Service (uses MySQL server) - test uses H2 in memory database
 - Inventory Service (uses MySQL server) - test uses H2 in memory database
 - Discovery Server - Eureka Server
+- API Gateway
 
 ## Setup (Environment variables)
 
