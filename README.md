@@ -10,6 +10,7 @@
 - Discovery Server - Eureka Server
 - API Gateway
 - Keycloak (Authorization Server)
+- Circuit Breaker (using Resilience4j - library inspired by: Netflix Hystrix) implemented in Order Service
 
 ## Setup (Environment variables)
 
