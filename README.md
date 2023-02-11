@@ -10,7 +10,11 @@
 - Discovery Server - Eureka Server
 - API Gateway
 - Keycloak (Authorization Server)
+
+## Other extra implementations:
+
 - Circuit Breaker (using Resilience4j - library inspired by: Netflix Hystrix) implemented in Order Service
+- Distributed Tracing (set TraceId -> for whole request and SpanId -> for services) -> using: Observability with MicroMeter (instead of deprecated Spring Cloud Sleuth) -> Zipkin for UI
 
 ## Setup (Environment variables)
 
@@ -29,3 +33,10 @@
 
 ```docker run -p 8181:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:18.0.0 start-dev```
 
+## Open Zipkin (url: http://localhost:9411/zipkin/): 
+
+```docker run -d -p 9411 openzipkin/zipkin:latest``` or ```docker run -d -p 9411:9411 openzipkin/zipkin:latest```
+
+Zipkin POST endpoint: http://localhost:9411/api/v2/spans
+
+Easier to read: ```brew install jq```
