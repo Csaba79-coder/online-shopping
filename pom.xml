@@ -22,6 +22,7 @@
     <module>inventory-service</module>
     <module>discovery-server</module>
     <module>api-gateway</module>
+    <module>notification-service</module>
   </modules>
 
   <properties>
@@ -31,15 +32,6 @@
     <spring-cloud.version>2022.0.1</spring-cloud.version>
     <micrometer-tracing.version>1.0.1</micrometer-tracing.version>
   </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
 
   <dependencyManagement>
     <dependencies>

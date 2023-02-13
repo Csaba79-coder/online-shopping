@@ -10,6 +10,7 @@
 - Discovery Server - Eureka Server
 - API Gateway
 - Keycloak (Authorization Server)
+- Notification Service uses Kafka (using Event Driven Architecture)
 
 ## Other extra implementations:
 
@@ -40,3 +41,11 @@
 Zipkin POST endpoint: http://localhost:9411/api/v2/spans
 
 Easier to read: ```brew install jq```
+
+## Docker for Kafka (from main project):
+
+```docker compose up -d```
+
+Check docker up and running: ```docker ps```
+
+Check Kafka logs: ```docker logs -f broker```
