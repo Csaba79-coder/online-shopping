@@ -49,3 +49,23 @@ Easier to read: ```brew install jq```
 Check docker up and running: ```docker ps```
 
 Check Kafka logs: ```docker logs -f broker```
+
+## Dockerize the Project
+
+Tool: Docker-compose
+
+Create the Dockerfile and in terminal: ```docker build -t apigateway-dockerfile .```
+
+Check image: ```docker images```
+
+Build Docker Layer: ```docker build -t apigateway-layered -f Dockerfilelayered .```
+
+Creating Docker Container image with using Jib ```mvn clean compile jib:build```
+
+Use jib:dockerBuild if you don't want to push it!
+
+To push to DockerHub: ```docker push csaba79coder/online-shopping:tagname```
+```docker tag local-image:tagname new-repo:tagname```
+```docker push new-repo:tagname```
+
+DockerHub login from terminal: ```docker login -u "myusername" -p "mypassword" docker.io```
