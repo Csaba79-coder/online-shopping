@@ -103,3 +103,21 @@ for Postman to be able to get the Secret Key add this line:
 ```127.0.0.1 keycloak```
 
 ![img.png](img/hostsChanges.png)
+
+## Monitoring MicroService (Prometheus -> in memory database & Grafana -> UI dashboard)
+
+Prometheus endpoint: ```/actuator/prometheus```
+
+Grafana endpoint: ```localhost:3000```
+
+Recompile Docker using Jib: ```mvn clean compile jib:build```
+
+In case of war projects use bellow: ```mvn clean package jib:build```
+
+After login to Grafana add datasource (Prometheus) -> named as e.g.: Prometheus Microservices
+
+Define Prometheus' url: ```http://prometheus:9090```
+
+Next step to create a Dashboard in Grafana for Prometheus (better to import an existing one): 
+
+Find under main project named: Grafana_Dashboard.json -> the content must be copied to: Import via  panel json -> load -> select datasource (as you named it, choose that one!) -> click: import
