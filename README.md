@@ -69,3 +69,37 @@ To push to DockerHub: ```docker push csaba79coder/online-shopping:tagname```
 ```docker push new-repo:tagname```
 
 DockerHub login from terminal: ```docker login -u "myusername" -p "mypassword" docker.io```
+
+To pull and run all the docker compose images from DockerHub (daemon mode):
+
+```docker compose up -d```
+
+Check the service if it is running: ```docker logs -f order-service``` (like checking Kafka)
+
+Every time we restart the docker new Client Secret will be generated for the Client (spring-cloud-client)
+
+with opening Keycloak through localhost:8080 we can log to keycloak, and get the Client Secret!
+
+API call from Postman:
+
+Without API Gateway implemented (direct keycloak call): 
+
+http://localhost:8181/realms/spring-boot-microservices-realm/protocol/openid-connect/token
+
+After API Gateway implemented: 
+
+http://localhost:8080/realms/spring-boot-microservices-realm/protocol/openid-connect/token
+
+From docker through API Gateway: 
+
+http://keycloak:8080/realms/spring-boot-microservices-realm/protocol/openid-connect/token
+
+Do not forget tho change:
+
+```C -> Windows -> System32 -> drivers -> etc -> filename: hosts ```
+
+for Postman to be able to get the Secret Key add this line:
+
+```127.0.0.1 keycloak```
+
+![img.png](img/hostsChanges.png)
